@@ -1,3 +1,4 @@
+import { Figure } from './figures/Figure';
 import { Knight } from './figures/Knight';
 import { Bishop } from './figures/Bishop';
 import { Pawn } from './figures/Pawn';
@@ -9,6 +10,9 @@ import { Rook } from './figures/Rook';
 
 export class Board {
   cells: Cell[][] = [];
+
+  lostBlackFigures: Figure[] = [];
+  lostWhiteFigures: Figure[] = [];
 
   public initCells() {
     for (let i = 0; i < 8; i++) {

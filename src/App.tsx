@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import BoardComponent from './components/BoardComponent';
+import LostFigures from './components/LostFigures';
 import { Board } from './modules/Board';
 import { Colors } from './modules/Colors';
 import { Player } from './modules/Player';
@@ -37,6 +38,9 @@ function App() {
         currentPlayer={currentPlayer}
         swapPlayer={swapPlayer}
       />
+      <div>
+        <LostFigures title="Black Figures" figures={board.lostBlackFigures} />
+      </div>
     </div>
   );
 }
