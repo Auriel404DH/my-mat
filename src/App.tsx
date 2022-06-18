@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import BoardComponent from './components/BoardComponent';
 import LostFigures from './components/LostFigures';
+import Timer from './components/Timer';
 import { Board } from './modules/Board';
 import { Colors } from './modules/Colors';
 import { Player } from './modules/Player';
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <div className="App">
+      <Timer restart={restart} currentPlayer={currentPlayer} />
       <BoardComponent
         board={board}
         setBoard={setBoard}
@@ -40,6 +42,9 @@ function App() {
       />
       <div>
         <LostFigures title="Black Figures" figures={board.lostBlackFigures} />
+      </div>
+      <div>
+        <LostFigures title="White Figures" figures={board.lostWhiteFigures} />
       </div>
     </div>
   );
