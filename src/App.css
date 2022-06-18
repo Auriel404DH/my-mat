@@ -26,12 +26,27 @@
   align-items: center;
 }
 
+.Cell img {
+  width: 45px;
+  height: 45px;
+  position: relative;
+}
+
 .Black {
-  background-color: rgb(11, 11, 52);
+  background-color: rgb(53, 53, 178);
 }
 
 .White {
-  background-color: antiquewhite;
+  background-color: rgb(196, 182, 163);
 }
 
+.Selected {
+  background-color: rgb(52, 189, 112);
+}
 
+.Availible {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: rgb(52, 189, 112);
+}

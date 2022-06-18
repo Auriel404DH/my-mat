@@ -1,22 +1,62 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Board } from '../modules/Board';
+import { Cell } from '../modules/Cell';
+import { Player } from '../modules/Player';
 import CellComponent from './CellComponent';
 
 interface BoardProps {
   board: Board;
   setBoard: (board: Board) => void;
+  currentPlayer: Player | null;
+  swapPlayer: () => void;
 }
 
-const BoardComponent: FC<BoardProps> = ({ board, setBoard }) => {
+const BoardComponent: React.FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPlayer }) => {
+  const [selectedCell, setSelectedCell] = React.useState<Cell | null>(null);
+
+  React.useEffect(() => {
+    highLightCells();
+  }, [selectedCell]);
+
+  function click(cell: Cell) {
+    if (selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
+      selectedCell.moveFigure(cell);
+      swapPlayer();
+      setSelectedCell(null);
+    } else {
+      if (cell.figure?.color === currentPlayer?.color) {
+        setSelectedCell(cell);
+      }
+    }
+  }
+
+  function highLightCells() {
+    board.highLightCells(selectedCell);
+    updateBoard();
+  }
+
+  function updateBoard() {
+    const newBoard = board.getCopyBoard();
+    setBoard(newBoard);
+  }
+
   return (
-    <div className="Board">
-      {board.cells.map((row, index) => (
-        <React.Fragment key={index}>
-          {row.map((cell) => (
-            <CellComponent cell={cell} key={cell.id} />
-          ))}
-        </React.Fragment>
-      ))}
+    <div>
+      <h1>Сейчас ходит {currentPlayer?.color} игрок! </h1>
+      <div className="Board">
+        {board.cells.map((row, index) => (
+          <React.Fragment key={index}>
+            {row.map((cell) => (
+              <CellComponent
+                click={click}
+                cell={cell}
+                key={cell.id}
+                selected={cell.x === selectedCell?.x && cell.y === selectedCell?.y}
+              />
+            ))}
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   );
 };
